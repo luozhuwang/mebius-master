@@ -1,0 +1,139 @@
+精准测试
+https://www.codenong.com/cs106970284/
+https://blog.csdn.net/weixin_43291944/article/details/118331335
+https://www.infoq.cn/article/xUu91CRqA4HcJz8UoMJS
+https://my.oschina.net/u/4594489/blog/7758067
+https://www.modb.pro/db/441075
+https://javakk.com/2772.html#title-1
+https://houbb.github.io/2020/05/29/java-ast-01-javaparser
+
+
+一、增量代码 diff(javaparser-AST):JavaParser和JavaSymbolSolver		AST识别变动
+二、源码静态结构分析(ASM、bcel、Javassist)												ASM识别方法关联
+三、增量代码覆盖率																								Neo4j存储关系
+
+1.保存服务调用链路(父节点)，待去除GET/SET/VO/DTO/TABLE
+//get/set方法不分析排除
+             if (ParseUtils.isGetSetMethod(callMethodNode)) {
+                 return Lists.newArrayList();
+             }
+
+内部类：ClueInsertServiceWrapper
+@table:PhoneRisk
+@data:BusinessTypeMapping/ClueCreateAddWeChatDTO/BusinessConditionResultVO
+@Getter：ClueGrayConfig/AuthorizeBasisEnum
+
+1.获取服务(t8t-tbt-cii-api)对外开放的API(t8t-tbt-cii-api/export)--OK
+2.获取服务(t8t-tbt-cii)调用外部API
+
+
+1.后端同学修改了接口(参数变动)，企微通知前端
+2.下线1个公共包的接口，但不知道还有哪些服务在调
+
+
+
+  <dependencies>
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-symbol-solver-core</artifactId>
+            <version>3.6.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+            <version>3.6.5</version>
+        </dependency>
+
+
+https://www.cnblogs.com/xpp142857/p/7374281.html
+精准化测试平台的演进之路经历了3个阶段： 1.0版本静态扫描 -> 2.0版本动态链路追踪 -> 3.0流量录制回放
+在一切开始之前，我们做了简单的技术调研，市面上大部分的做法，总结出来大概分为两种思路：
+使用静态扫描获取代码的调用链，不同版本的代码diff，获取改动代码，然后再通过改动代码来推测测试范围。
+使用动态链路追踪，来获取用例的执行路径，通过代码diff来判断影响路径，从而反向推理测试用例集。
+
+不同版本的代码diff，获取改动代码，然后再通过改动代码动态链路追踪，最顶层调用方法
+
+
+Sparrow 做静态代码分析，通过集团的 Sandbox 做动态流量采集
+
+JavaParser：语法分析
+ASM：读取字节码
+
+基于 AST 的语法树分析
+基于字节码分析
+
+遍历 master、branch 路径项目下的所有.java 文件，生成抽象语法树，并做去噪处理（空格，注释等无关改动）
+对比方法（注解，签名，返回值，以及方法体），统计特性分支改动的方法
+
+平台能够支持对两个版本的代码做差异化Diff计算，然后通过字节码层面的静态分析
+
+git 对比两个分支差异
+cd /temp/t8t-mid-uct/.git/refs/heads
+cd /temp/t8t-mid-uct_sc/.git/refs/heads/
+
+https://www.jianshu.com/p/bb97fabb475e
+显示出branch1和branch2中差异的部分:git diff branch1 branch2 --stat
+git diff --stat=1000  t8t-mid-wec/t8t-mid-wec-server/  t8t-mid-wec_sc/t8t-mid-wec-server/ |grep .java
+git diff --stat e70e963 7754a98
+
+列出两个版本间发生更改的文件列表(commit id 太长 一般复制前面7位。)
+git diff e1c59ad5d12959d8934e2f9c94758addac4881d9  9e04ddb6a9d3d33e576e38832023de03240a5525   --stat --name-only
+展示两个版本之间改动文件列表名,不展示细节
+git diff --name-status e1c59ad5d12959d8934e2f9c94758addac4881d9  9e04ddb6a9d3d33e576e38832023de03240a5525
+
+email = jay.zhang@corp.to8to.com
+	name = jay.zhang
+
+精准测试：
+变更了什么内容、产生了什么影响、需要做哪些测试、变更覆盖够不够
+
+
+https://gitee.com/xiaoxufa/jgit/blob/master/src/JgitDiff.java
+html显示差异化对比
+https://blog.csdn.net/qq_33697094/article/details/121681707
+
+git clone git@repo.we.com:java/t8t-mid-uc.git -b sc-test
+
+https://testerhome.com/topics/23819
+掌握：java 编程，了解 jvm 大致原理，特别编译阶段，类加载阶段
+熟悉：asm，可将 class 文件梳理为一条完整的调用链--------ASM-tree读取的是已编译的Java类文件
+ASM 是一个 Java 字节码操控框架。它能被用来动态生成类或者增强既有类的功能，ASM 可以直接产生二进制 class 文件，也可以在类被加载入 Java 虚拟机之前动态改变类行为。ASM 从类文件中读入信息后，能够改变类行为，分析类信息
+，这些类文件拥有足够的元数据来解析类中的所有元素：类名称、方法、属性以及 Java 字节码（指令）。ASM 从类文件中读入信息后，能够改变类行为，分析类信息，甚至能够根据用户要求生成新类。
+熟悉：javaparser，可将 java 文件解析为抽象语法树（AST）
+
+只输出指定类型方法的调用链，包括：RPC 接口，HTTP 接口，定时任务，MQ 生产与消费
+ 扫描的目的是逆推对外暴露需要回归的功能，例如接口，定时器，消息队列等，所以需要排除掉一些无关的链路
+例如dubbo，thrift，job，nsq在编写中其类一般都或有特定的注解，或有特定的父类，或有特定实现的接口类型，所以可以在类删选器classvisiotr中进行筛选
+
+
+降噪处理(比如：实体类对象中的 get/set 方法，拦截器、日志、bean、 config)，需要将链路/结果分析，数据入库以及生成可视化界面
+
+生成调用链路树示例
+https://gitee.com/LinWanCen/java-to-diagrams/blob/main/src/test/java/io/github/linwancen/diagrams/java/parser/JavaParseMainTest.java
+
+https://juejin.cn/post/6898904928614350855
+https://blog.csdn.net/kaishizhangcheng/article/details/121712003
+https://mp.weixin.qq.com/s?__biz=MzAxOTY5MDMxNA==&mid=2455760012&idx=1&sn=07ebcab572db3424c502360d96ce79f0&chksm=8c686aa9bb1fe3bf9622b2049a220e5a2ceef86dcbe276dd52423f647900d4c19ca74720879e&scene=27#wechat_redirect
+
+https://developer.aliyun.com/article/1177940
+
+代码clone：
+TestCodeOperate
+代码对比：
+TestCodeDiff
+
+月光宝盒（vivo流量录制回放平台）
+https://github.com/vivo/MoonBox
+jvm-sandbox-repeater流量录制回放平台
+https://github.com/alibaba/jvm-sandbox-repeater
+
+探探客户端精准测试实践
+https://www.modb.pro/doc/45957
+质量保障-2-朴朴精准测试实践
+https://www.modb.pro/doc/93959
+严选精准测试实践（进阶篇）
+https://www.modb.pro/db/441075
+网易精准测试
+https://github.com/NetEase/mebius/tree/master
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="utf-8" /> 
+  <title>纯CSS实现百叶窗</title> 
+ </head> 
+ <body> 
+  <div> 
+   <table width="500" height="100" border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;"> 
+     <tr> 
+      <th>变更文件数</th> 
+      <th>变更方法数</th> 
+      <th>影响入口数</th> 
+     </tr> 
+     <tr> 
+      <td style="color: red;" align="center">10</td> 
+      <td style="color: red;" align="center">5</td> 
+      <td style="color: red;" align="center">12</td> 
+     </tr> 
+   </table> 
+  </div> 
+  <br>
+  <br>
+  <h4 style="color: red;">开发关注点：</h4>
+  <div> 
+   <table border="1"> 
+     <tr> 
+      <td id="showbfq1" height="20" align="top" onclick="if(bfq1.style.display=='none'){bfq1.style.display='';showbfq1.innerText='代码变更内容分析';}
+ else{bfq1.style.display='none';showbfq1.innerText='代码变更内容分析';}">代码变更内容分析</td> 
+     </tr> 
+     <tr> 
+      <td height="80" align="left" name="bfq1" id="bfq1" style="display:none;"> DynamicConfigurer--&gt;addedDemandConfig<br /> LockDemandServiceImpl--&gt;getAddedConfig<br /> </td> 
+     </tr> 
+   </table> 
+  </div> 
+  <div> 
+   <table border="1"> 
+     <tr> 
+      <td id="showbfq2" height="20" align="top" onclick="if(bfq2.style.display=='none'){bfq2.style.display='';showbfq2.innerText='影响入口';}
+ else{bfq2.style.display='none';showbfq2.innerText='影响入口';}">影响入口</td> 
+     </tr> 
+     <tr> 
+      <td height="80" align="left" name="bfq2" id="bfq2" style="display:none;"> com.to8to.dcp.dis.assign.task.AssignJointPromotionJob#execute(String)<br /> com.to8to.dcp.dis.board.controller.AssignCompanyServiceController#conditionAssign(AssignCompanyServiceWrapper$ConditionAssignDTO) </td> 
+     </tr> 
+   </table> 
+  </div>   
+  <br>
+  <h4 style="color: red;">测试关注点：</h4> 
+   <table border="1"> 
+     <tr> 
+      <td id="showbfq3" height="20" align="top" onclick="if(bfq3.style.display=='none'){bfq3.style.display='';showbfq3.innerText='接口';}
+ else{bfq3.style.display='none';showbfq3.innerText='接口';}">接口</td> 
+     </tr> 
+     <tr> 
+      <td height="80" align="left" name="bfq3" id="bfq3" style="display:none;"> com.to8to.dcp.dis.assign.task.AssignJointPromotionJob#execute(String)<br /> com.to8to.dcp.dis.board.controller.AssignCompanyServiceController#conditionAssign(AssignCompanyServiceWrapper$ConditionAssignDTO) </td> 
+     </tr> 
+   </table> 
+   <table border="1"> 
+     <tr> 
+      <td id="showbfq4" height="20" align="top" onclick="if(bfq4.style.display=='none'){bfq4.style.display='';showbfq4.innerText='定时任务';}
+ else{bfq4.style.display='none';showbfq4.innerText='定时任务';}">定时任务</td> 
+     </tr> 
+     <tr> 
+      <td height="80" align="left" name="bfq4" id="bfq4" style="display:none;"> com.to8to.dcp.dis.assign.task.AssignJointPromotionJob#execute(String)<br /> com.to8to.dcp.dis.board.controller.AssignCompanyServiceController#conditionAssign(AssignCompanyServiceWrapper$ConditionAssignDTO) </td> 
+     </tr> 
+   </table> 
+ </body>
+</html>
